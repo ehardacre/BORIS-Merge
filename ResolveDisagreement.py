@@ -172,6 +172,7 @@ def resolveDis(file):
                 #collect input from user
                 print("DISAGREEMENT")
                 print("starts at: " + str(startTime) + "\nlasts: " + str(duration) + " seconds")
+                print(dis)
                 dec = raw_input("Would you like to use rater 1 or 2? [1 / 2] \n")
                 if dec == "1":
                     e['decision'] = log['rater 1']
