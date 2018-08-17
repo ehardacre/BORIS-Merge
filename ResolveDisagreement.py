@@ -1,4 +1,5 @@
 import csv
+#03 2206 Light-weight interaction
 
 #column values from boris export
 timeStamp = 0
@@ -159,7 +160,7 @@ def resolveDis(file):
                 endTime = -1
                 duration = 0
                 index = x
-                while disagreement and (dis['rater 1'] == save_dis['rater 1'] and dis['rater 2'] == save_dis['rater 2']):
+                while disagreement and (dis['rater 1'] == save_dis['rater 1'] and dis['rater 2'] == save_dis['rater 2']) and index < len(finalProfile):
                     acc.append(index)
                     duration += 1
                     endTime = int(finalProfile[index]['time'])
@@ -169,15 +170,18 @@ def resolveDis(file):
                     if dis['rater 1'] == dis['rater 2']:
                             disagreement = False
                 startTime = e['time']
-                #collect input from user
-                print("DISAGREEMENT")
-                print("starts at: " + str(startTime) + "\nlasts: " + str(duration) + " seconds")
-                print(dis)
-                dec = raw_input("Would you like to use rater 1 or 2? [1 / 2] \n")
-                if dec == "1":
+                if (endTime - startTime) > 7:
+                    #collect input from user
+                    print("DISAGREEMENT")
+                    print("starts at: " + str(startTime) + "\nlasts: " + str(duration) + " seconds")
+                    print(save_dis)
+                    dec = raw_input("Would you like to use rater 1 or 2? [1 / 2] \n")
+                    if dec == "1":
+                        e['decision'] = log['rater 1']
+                    elif dec == "2":
+                        e['decision'] = log['rater 2']
+                else:
                     e['decision'] = log['rater 1']
-                elif dec == "2":
-                    e['decision'] = log['rater 2']
                 #from start index to final index
                 for r in range(0,endTime - startTime):
                     #write the chosen
@@ -200,3 +204,12 @@ for x in range(startGroup,endGroup+1):
     createProfile(2);
     alignProfiles();
     resolveDis(file_name_mod);
+    #initializing rater 1
+    rater1 = {}
+    rater1["events"] = []
+    rater1["eventProfile"] = []
+    #initializing rater2
+    rater2 = {}
+    rater2["events"] = []
+    rater2["eventProfile"] = []
+    finalProfile = []
