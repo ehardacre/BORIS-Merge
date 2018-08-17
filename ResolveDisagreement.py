@@ -190,10 +190,12 @@ def resolveDis(file):
                     e['time'] += 1
 
 #collects the file name as input
-startGroup = 2
+startGroup = 10
+
 endGroup = 21
 for x in range(startGroup,endGroup+1):
     file_name = str(x)
+    file_name_mod = file_name;
     if x < 10:
         file_name_mod = "0" + file_name;
     print("\n");
